@@ -5,9 +5,9 @@ class Dropdown extends Component {
     super(props);
     this.state = {
         values: [],
-        selectedName: '',
+        // selectedName: '',
     };
-    this.handleDropdownChange = this.handleDropdownChange.bind(this);
+    // this.handleDropdownChange = this.handleDropdownChange.bind(this);
   }
     componentDidMount() {
        fetch('https://api.myjson.com/bins/14rcfu')
@@ -48,18 +48,18 @@ class Dropdown extends Component {
 // }
 // }
 
-  handleDropdownChange(e) {
-    this.setState({ selectedName: e.target.value });
-  }
+  // handleDropdownChange(e) {
+  //   this.setState({ selectedName: e.target.value });
+  // }
 
 
 render(){
-  console.log(this.state.selectedName);
+  // console.log(this.state.selectedName);
   // console.log(this.state.values);
   return (
     <div>
           <div>
-            <select id="dropdown" onChange={this.handleDropdownChange}>{
+            <select id="dropdown" onChange={this.props.onChangeValue}>{
                  this.state.values.map((obj) => {
                      return <option key={obj.id} value={obj.name}>{obj.name}</option>
                  })

@@ -25,7 +25,9 @@ class App extends Component {
       // }]
 
       rowData: null,
+      selectedName: '',
     };
+    this.handleDropdownChange = this.handleDropdownChange.bind(this);
   }
 
   componentDidMount() {
@@ -36,7 +38,12 @@ class App extends Component {
       .catch(err => console.log(err))
   }
 
+   handleDropdownChange(e) {
+    this.setState({ selectedName: e.target.value });
+  }
+
   render() {
+    console.log(this.state.selectedName);
     return (
       <div
         className="ag-theme-balham"
@@ -51,7 +58,7 @@ class App extends Component {
           rowSelection="multiple"
         />
 
-        <Dropdown />
+        <Dropdown onChangeValue={this.handleDropdownChange}/>
       </div>
     );
   }
