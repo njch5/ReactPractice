@@ -4,11 +4,13 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import Dropdown from './Dropdown';
-
+import PostForm from './PostForm';
+import MaterialForm from './MaterialForm';
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      
       columnDefs: [{
         headerName: "Make", field: "make", sortable: true, filter: "agTextColumnFilter"
       }, {
@@ -25,32 +27,37 @@ class App extends Component {
       // }]
 
       rowData: null,
-      selectedName: '',
     };
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
   }
 
-  componentDidMount() {
-    console.log('Component did MOUNT!!')
-    fetch('https://api.myjson.com/bins/15psn9')
-      .then(response => response.json())
-      .then(rowData => this.setState({rowData}))
-      .catch(err => console.log(err))
-  }
 
    handleDropdownChange(e) {
     this.setState({ selectedName: e.target.value });
   }
 
+  componentDidMount() {
+
+    fetch('https://api.myjson.com/bins/15psn9')
+      .then(response => response.json())
+      .then(rowData => this.setState({rowData}))
+      .catch(err => console.log('err'))
+    }
+
   render() {
-    console.log(this.state.selectedName);
+    // console.log(this.state.selectedName);
+    console.log(this.state.rowData);
     return (
+      
       <div
         className="ag-theme-balham"
         style={{
         height: '500px',
         width: '600px' }}
       >
+
+        <PostForm />
+        <Dropdown onChangeValue={this.handleDropdownChange}/>
         
         <AgGridReact
           columnDefs={this.state.columnDefs}
@@ -58,7 +65,7 @@ class App extends Component {
           rowSelection="multiple"
         />
 
-        <Dropdown onChangeValue={this.handleDropdownChange}/>
+        <MaterialForm />
       </div>
     );
   }
